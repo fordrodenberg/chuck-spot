@@ -1,0 +1,9 @@
+button {
+    padding: 1rem;
+    background-color: var(--primary-blue);
+    border: none;
+    color: var(--primary-white);
+    font-size: 16pt;
+    border-radius: 6px;
+    font-family: 'Roboto Mono', monospace;
+}

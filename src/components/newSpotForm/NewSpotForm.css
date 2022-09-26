@@ -1,0 +1,119 @@
+.new-spot-form-root {
+    background-color: #e5e0e0;
+
+    height: 100vh;
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+.new-spot-form-root h1 {
+    background-color: var(--primary-blue);
+    margin: 0 auto;
+    text-align: center;
+    color: rgb(243, 241, 241);
+    padding: .5rem;
+    font-size: 26pt;
+    font-family: 'Barlow Condensed', sans-serif;
+}
+
+.new-spot-form-root label,
+.new-spot-form-root legend {
+    font-size: 16pt;
+    font-weight: 500;
+    display: block;
+}
+
+.new-spot-form-root>div {
+    padding: .25rem;
+}
+
+.new-spot-form-root .location-root {
+    display: flex;
+}
+
+.new-spot-form-root .spot-type-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.new-spot-form-root .spot-type-container label {
+    padding: .5rem 1rem;
+    border-radius: 6px;
+    transition: 0.3s;
+    font-size: 12pt;
+    background-color: #b8b9bb;
+}
+
+
+
+.new-spot-form-root input,
+.new-spot-form-root textarea {
+    border: none;
+    outline: none;
+    padding: .5rem;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin: .5rem 0;
+    border-radius: 4px;
+}
+
+
+
+.new-spot-form-root input:focus,
+.new-spot-form-root textarea:focus {
+    border: solid 2px #1c2454;
+}
+
+.new-spot-form-root .spot-type-container {
+    padding: 1rem;
+}
+
+.new-spot-form-root .spot-type-container input[type=radio] {
+    display: none;
+}
+
+new-spot-form-root .spot-type-container label {
+    background-color: grey;
+    color: white;
+}
+
+.new-spot-form-root .spot-type-container input:checked~label {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+.new-spot-form-root .lat-input,
+.new-spot-form-root .long-input {
+    padding: .5rem;
+}
+
+.new-spot-form-root .lat-input label,
+.new-spot-form-root .long-input label {
+    font-size: 14pt;
+}
+
+.new-spot-form-root .buttons {
+    display: flex;
+    gap: 8px;
+
+    padding: 1rem;
+    transition: .3s;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.new-spot-form-root .cancel {
+    background-color: #b8b9bb;
+}
+
+.new-spot-form-root .cancel:hover {
+    background-color: #d76e64;
+}
+
+.new-spot-form-root .submit:hover {
+    background-color: rgb(109, 147, 217);
+}

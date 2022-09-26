@@ -1,0 +1,29 @@
+.modal-root {
+
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    position: fixed;
+    z-index: 9999;
+}
+
+
+.modal-root .modal {
+    background-color: var(--primary-grey);
+    width: fit-content;
+    min-width: 50%;
+    border-radius: 8px;
+    position: absolute;
+
+    height: 100vh;
+
+
+}
+
+@media screen and (max-width: 550px) {
+    .modal-root .modal {
+        width: 100%;
+    }
+}

@@ -1,25 +1,76 @@
-import logo from './logo.svg';
 import './App.css';
+import { MapContainer } from 'react-leaflet/MapContainer'
+import React, { createContext, useEffect, useState } from 'react';
+import NavBar from './components/navBar/NavBar';
+import { db } from "./firebase-config"
+import { collection, getDocs } from 'firebase/firestore'
+import SpotMap from './components/spotMap/SpotMap';
+import LoadingScreen from './components/loadingScreen/LoadingScreen';
+import { useBoolean } from './hooks/UseBoolean';
+import { map } from 'leaflet';
+
+
+export const MapContext = createContext(null);
+export const MarkerContext = createContext(null);
+
 
 function App() {
+
+  const [markers, setMarkers] = useState([]);
+  const markersCollectionRef = collection(db, "markers");
+  const [usersCurrentPosition, setUsersCurrentPosition] = useState(null);
+  const [isMapDisabled, setIsMapDisabled] = useState(false);
+  const [selectedType, setSelectedType] = useState("");
+  const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
+
+  function disableMap() {
+    setIsMapDisabled(true);
+  }
+
+  function enableMap() {
+    setIsMapDisabled(false);
+  }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+      setUsersCurrentPosition({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      })
+    });
+  }, [])
+
+  useEffect(() => {
+    getMarkers();
+  }, []);
+
+  async function getMarkers() {
+    const data = await getDocs(markersCollectionRef)
+
+    setMarkers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <MapContext.Provider value={{ isMapDisabled, disableMap, enableMap, usersCurrentPosition, isSideMenuOpen, toggleIsSideMenuOpen }}>
+      <MarkerContext.Provider value={{ selectedType, setSelectedType }}>
+        <div className='app-root'>
+          <div className='map-container'>
+            {usersCurrentPosition
+              ? <MapContainer
+                center={[usersCurrentPosition?.lat, usersCurrentPosition?.lng]}
+                zoom={13}
+                scrollWheelZoom={false}>
+                <SpotMap markers={markers} getMarkers={getMarkers} />
+              </MapContainer>
+              : <LoadingScreen />}
+            <NavBar />
+          </div>
+        </div>
+      </MarkerContext.Provider>
+    </MapContext.Provider>
+  )
 }
 
 export default App;
