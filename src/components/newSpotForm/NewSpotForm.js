@@ -5,6 +5,9 @@ import { getStorage } from "firebase/storage"
 import { ref, uploadBytes } from 'firebase/storage';
 import { db } from "../../firebase-config";
 import { v4 } from 'uuid';
+import { faStore, faBullseye, faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export default function NewSpotForm({ position, handleCancelClicked, onSubmit }) {
 
@@ -103,127 +106,146 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
             submitSpot();
         }}>
             <div className='new-spot-form-root'>
-                <h1>Create a spot</h1>
+                <div className='header'>
+                    <h1>Create a spot</h1>
+                    <div className='logo'>
+                        chuck<span className='dot'>.</span><span className='title-spot'>Spot</span>
+                    </div>
 
-                {/* name */}
-                <div className='spot-name'>
-                    <label htmlFor='name'>
-                        Spot Name:
-                    </label>
-                    <input
-                        type='text'
-                        name='name'
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        placeholder='Addlestone Double Set'
-                        id='name'
-                    />
                 </div>
 
-                {/* description */}
-                <div>
-                    <label htmlFor='description'>
-                        Description:
-                    </label>
-                    <textarea
-                        type='text'
-                        name='description'
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        required
-
-                        placeholder='6 stair with handrail, gap, ledges, etc'
-                        id='name'
-                    />
-                </div>
-
-                {/* lat, long */}
-                <label className='location'>Location:</label>
-                <div className='location-root'>
-                    <div className='lat-input'>
-                        <label htmlFor='latitude'>Latitude:</label>
+                <div className='form-data'>
+                    {/* name */}
+                    <div className='spot-name'>
+                        <label htmlFor='name'>
+                            Name:
+                        </label>
                         <input
-                            type='number'
-                            value={formData.location[0]}
-                            onChange={(e) => {
-                                setFormData({
-                                    ...formData,
-                                    location: [e.target.value, formData.location[1]]
-                                })
-                            }}
+                            type='text'
+                            name='name'
+                            value={formData.name}
+                            onChange={handleInputChange}
                             required
-                            id='spotLatitude' />
+                            placeholder='Addlestone Double Set'
+                            id='name'
+                        />
                     </div>
-                    <div className='long-input'>
-                        <label htmlFor='longitude'>Longitude:</label>
-                        <input
-                            type='number' value={formData.location[1]}
-                            onChange={(e) => {
-                                setFormData({
-                                    ...formData,
-                                    location: [formData.location[0], e.target.value]
-                                })
-                            }}
+
+                    {/* description */}
+                    <div>
+                        <label htmlFor='description'>
+                            Description:
+                        </label>
+                        <textarea
+                            type='text'
+                            name='description'
+                            value={formData.description}
+                            onChange={handleInputChange}
                             required
-                            id='spotLongitude' />
+
+                            placeholder='6 stair with handrail, gap, ledges, etc'
+                            id='name'
+                        />
                     </div>
-                </div>
 
-                {/* type radio group */}
-                <div className='type-root'>
-                    <legend htmlFor='spotType' className='type-label'>Type:</legend>
-                    <div className='spot-type-container'>
-                        <div>
+                    {/* lat, long */}
+                    <label className='location'>Location:</label>
+                    <div className='location-root'>
+                        <div className='lat-input'>
+                            <label htmlFor='latitude'>Latitude:</label>
                             <input
-
-                                id="typeSpotOption"
-                                type='radio'
-                                name='type'
-                                value='spot'
-                                checked={formData.type === 'spot'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor='typeSpotOption'>Spot</label>
+                                type='number'
+                                value={formData.location[0]}
+                                onChange={(e) => {
+                                    setFormData({
+                                        ...formData,
+                                        location: [e.target.value, formData.location[1]]
+                                    })
+                                }}
+                                required
+                                id='spotLatitude' />
                         </div>
-
-                        <div>
+                        <div className='long-input'>
+                            <label htmlFor='longitude'>Longitude:</label>
                             <input
-
-                                id="typeParkOption"
-                                type='radio'
-                                name='type'
-                                value='park'
-                                checked={formData.type === 'park'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor='typeParkOption'>Park</label>
-                        </div>
-
-                        <div>
-                            <input
-                                id="typeShopOption"
-                                type='radio'
-                                name='type'
-                                value='shop'
-                                checked={formData.type === 'shop'}
-                                onChange={handleInputChange}
-                            />
-                            <label htmlFor='typeShopOption'>Shop</label>
+                                type='number' value={formData.location[1]}
+                                onChange={(e) => {
+                                    setFormData({
+                                        ...formData,
+                                        location: [formData.location[0], e.target.value]
+                                    })
+                                }}
+                                required
+                                id='spotLongitude' />
                         </div>
                     </div>
 
+                    {/* type radio group */}
+                    <div className='type-root'>
+                        <legend htmlFor='spotType' className='type-label'>Type:</legend>
+                        <div className='spot-type-container'>
+                            <div className='spot'>
+                                <input
+                                    id="typeSpotOption"
+                                    type='radio'
+                                    name='type'
+                                    value='spot'
+                                    checked={formData.type === 'spot'}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor='typeSpotOption'>
+                                    <FontAwesomeIcon className='icon' icon={faBullseye} />
+                                    <div>Spot</div>
+                                </label>
+                            </div>
 
-                </div>
 
-                {/* image upload */}
-                <div>
-                    <input type='file' multiple
-                        onChange={handleImageUploadChange} />
-                    <br />
-                    {imageUrls.map((url) => {
-                        return <img width='75px' height='75px' src={url} />;
-                    })}
+                            <div className='park'>
+                                <input
+
+                                    id="typeParkOption"
+                                    type='radio'
+                                    name='type'
+                                    value='park'
+                                    checked={formData.type === 'park'}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor='typeParkOption'>
+                                    <FontAwesomeIcon className='icon' icon={faStar} />
+                                    <div>Park</div>
+                                </label>
+                            </div>
+
+                            <div className='shop'>
+                                <input
+                                    id="typeShopOption"
+                                    type='radio'
+                                    name='type'
+                                    value='shop'
+                                    checked={formData.type === 'shop'}
+                                    onChange={handleInputChange}
+                                />
+                                <label htmlFor='typeShopOption'>
+                                    <FontAwesomeIcon className='icon' icon={faStore} />
+                                    <div>
+                                        Shop
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    {/* image upload */}
+                    <div>
+                        <input type='file' multiple
+                            onChange={handleImageUploadChange} />
+                        <br />
+                        {imageUrls.map((url) => {
+                            return <img width='75px' height='75px' src={url} />;
+                        })}
+                    </div>
                 </div>
 
                 {/* cancel and submit buttons */}

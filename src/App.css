@@ -6,8 +6,19 @@
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
-  background-color: var(--primary-blue);
-  color: var(--primary-white)
+  background-color: #414f61;
+
+}
+
+button {
+  background-color: #414f61;
+  color: var(--primary-white);
+  border: none;
+  font-weight: 600;
+  font-size: 16pt;
+  border-radius: 6px;
+  font-family: 'Roboto Mono', monospace;
+  cursor: pointer;
 }
 
 .map-container {

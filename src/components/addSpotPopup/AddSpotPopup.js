@@ -7,7 +7,6 @@ import SideMenu from '../sideMenu/SideMenu';
 import './AddSpotPopup.css'
 
 export default function AddSpotPopup({ onNewSpotAdded }) {
-    console.log('add spot popup')
 
     const [position, setPosition] = useState(null);
     const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
@@ -53,7 +52,7 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
         return (
             <>
                 <Popup position={position}>
-                    <button onClick={handleAddSpotClicked}> + New Spot</button>
+                    <button className='add-spot' onClick={handleAddSpotClicked}> + New Spot</button>
                 </Popup>
 
                 <SideMenu isOpen={isSideMenuOpen}

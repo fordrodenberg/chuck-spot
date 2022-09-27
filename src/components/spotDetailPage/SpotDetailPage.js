@@ -1,51 +1,100 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './SpotDetailPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleXmark as solidX } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faStore as shopIcon, faBullseye as spotIcon, faStar as parkIcon } from '@fortawesome/free-solid-svg-icons';
+import Modal from '../Modal/Modal'
+import { useBoolean } from '../../hooks/UseBoolean';
 
+export default function ({ handleExitClicked, name, description, location, type, images }) {
 
+    function getIcon(type) {
+        let icon;
+        if (type == 'spot') {
+            icon = spotIcon
+        } else if (type == 'park') {
+            icon = parkIcon
+        } else if (type == 'shop') {
+            icon = shopIcon
+        }
+        return icon
+    }
 
+    const [isModalOpen, toggleIsModalOpen] = useBoolean(false);
 
-export default function ({ handleExitClicked, name, description, location, type }) {
+    function displayModal() {
+        toggleIsModalOpen(true);
+    }
 
     return (
         <div className='spot-detail-page-root'>
 
-            <h1>Spot Details</h1>
-
-            <FontAwesomeIcon className='exit' icon={solidX} onClick={handleExitClicked} />
-
-            <div className='spot-details'>
-                <h2>
-                    {name}
-                </h2>
-
-                <p>
-                    {description}
-                </p>
-
-                <div>
-                    <h2>Location</h2>
-                    <div>
-                        <h3>Latitude</h3>
-                        <div>
-                            {location[0]}
-                        </div>
+            <div className='header'>
+                <div className='left'>
+                    <FontAwesomeIcon className='exit' icon={faArrowLeft} onClick={handleExitClicked} />
+                    <h1>Spot Details</h1>
+                </div>
+                <div className='right'>
+                    <div className='logo'>
+                        chuck<span className='dot'>.</span><span className='title-spot'>Spot</span>
                     </div>
 
-                    <div>
-                        <h3>Longitude</h3>
-                        <div>
-                            {location[1]}
-                        </div>
-                    </div>
-
-                    <div>
-                        {type}
-                    </div>
                 </div>
             </div>
 
+
+            <div className='detail-images-flex'>
+                <div className='spot-details'>
+                    <div className='name-type-flex'>
+                        <h2 className='spot-name'>
+                            {name}
+                        </h2>
+                        <div className='spot-type'>
+                            <div className={type}>
+                                <FontAwesomeIcon icon={getIcon(`${type}`)} />
+
+                            </div>
+                        </div>
+                    </div>
+                    <p className='spot-description'>
+                        {description}
+                    </p>
+
+                    <div className='spot-location-parent'>
+                        <h3>Location:</h3>
+                        <div className='spot-coordinates'>
+                            <div className='spot-lat'>
+                                <h4>Latitude:</h4>
+                                <div>
+                                    {location[0]}
+                                </div>
+                            </div>
+
+                            <div className='spot-long'>
+                                <h4>Longitude:</h4>
+                                <div>
+                                    {location[1]}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='image-container'>
+                    <div className='image'>
+                        {images}
+                    </div>
+                </div>
+            </div>
+            <div className='buttons'>
+
+                <button className='delete' onClick={displayModal}>Delete</button>
+
+                <button className='edit'>Edit</button>
+            </div>
+
+            {/* <Modal
+                isOpen={isModalOpen}
+                toggleOpen={toggleIsModalOpen} /> */}
 
         </div>
     )

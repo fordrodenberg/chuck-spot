@@ -1,5 +1,6 @@
 .spot-popup-root {
     font-family: 'Barlow Condensed', sans-serif;
+    color: #f3f1f1;
 }
 
 .spot-popup-root h2 {
@@ -33,9 +34,11 @@
 
 .spot-popup-root .more-info {
     transition: 0.3s;
+    padding: .5rem;
 }
 
+
 .spot-popup-root .more-info:hover {
-    background-color: var(--secondary-blue);
+    background-color: #5b6b81;
 
 }

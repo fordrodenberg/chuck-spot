@@ -14,8 +14,8 @@ import SideMenu from '../sideMenu/SideMenu'
 import SpotDetailPage from '../spotDetailPage/SpotDetailPage'
 import { MapContext } from '../../App'
 
-export default function SpotMarker({ id, name, location, description, type, mapPosition, setMapPosition }) {
-    console.log("id", id)
+export default function SpotMarker({ id, name, location, description, type }) {
+
 
     const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
 
@@ -75,7 +75,7 @@ export default function SpotMarker({ id, name, location, description, type, mapP
                 icon={GetIcon(type)}
                 eventHandlers={{
                     click: (e) => {
-                        console.log("disabling map")
+
                         disableMap();
                         // setMapPosition({ lat: location[0], lng: location[1] });
                     }
@@ -120,6 +120,7 @@ export default function SpotMarker({ id, name, location, description, type, mapP
                     description={description}
                     location={location}
                     type={type}
+                    images={imageUrls.map(img => <img width='125px' height='125px' src={img} />)}
                 />
             </SideMenu>
         </>

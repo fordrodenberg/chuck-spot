@@ -71,7 +71,7 @@ function App() {
               </MapContainer>
               : <LoadingScreen />}
             <NavBar
-              typeFilter={selectedType}
+              selectedType={selectedType}
               setTypeFilter={(typeSelected) => {
                 setSelectedType(typeSelected)
               }}

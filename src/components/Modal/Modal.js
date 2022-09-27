@@ -1,22 +1,14 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
+import { MapContext } from '../../App'
 import './modal.css'
 
-export default function Modal({ children, toggleModalOpen }) {
+export default function Modal({ isOpen }) {
 
-    const backgroundRef = useRef()
 
-    function handleBGClicked(e) {
-        if (e.target == backgroundRef.current) {
-            toggleModalOpen()
-        }
-    }
 
     return (
-        <div className="modal-root" ref={backgroundRef} onClick={handleBGClicked}>
-            <div className="modal">
+        <div className={`modal-root ${isOpen ? 'visible' : 'hidden'}`}>
 
-                {children}
-            </div>
         </div>
     )
 }
