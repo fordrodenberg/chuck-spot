@@ -17,11 +17,13 @@ import { MapContext } from '../../App'
 export default function SpotMarker({ id, name, location, description, type, mapPosition, setMapPosition }) {
     console.log("id", id)
 
+    const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
+
     const imagesRef = ref(getStorage(), 'images')
     const spotImagesRef = ref(imagesRef, id);
     const [isLiked, toggleLiked] = useBoolean();
     const [imageUrls, setImageUrls] = useState([]);
-    const { disableMap, isSideMenuOpen, toggleIsSideMenuOpen } = useContext(MapContext);
+    const { disableMap } = useContext(MapContext);
 
     useEffect(() => {
         console.log("getting images")
@@ -61,16 +63,19 @@ export default function SpotMarker({ id, name, location, description, type, mapP
     }
 
     function handleDetailsClicked() {
-        toggleIsSideMenuOpen()
+        toggleIsSideMenuOpen(true)
     }
 
 
     return (
         <>
 
-            <Marker position={location} icon={GetIcon(type)}
+            <Marker
+                position={location}
+                icon={GetIcon(type)}
                 eventHandlers={{
                     click: (e) => {
+                        console.log("disabling map")
                         disableMap();
                         // setMapPosition({ lat: location[0], lng: location[1] });
                     }
@@ -107,7 +112,7 @@ export default function SpotMarker({ id, name, location, description, type, mapP
 
             <SideMenu
                 isOpen={isSideMenuOpen}
-                toggleSideMenuOpen={toggleIsSideMenuOpen}
+                toggleOpen={toggleIsSideMenuOpen}
             >
                 <SpotDetailPage
                     handleExitClicked={toggleIsSideMenuOpen}

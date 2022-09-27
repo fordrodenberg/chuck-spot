@@ -3,17 +3,15 @@ import { useMapEvents } from 'react-leaflet';
 import { MapContext } from '../../App'
 import './SideMenu.css'
 
-export default function SideMenu({ children }) {
-    const { disableMap, isSideMenuOpen } = useContext(MapContext);
-    const backgroundRef = useRef()
+export default function SideMenu({ children, isOpen, toggleOpen }) {
 
-    if (isSideMenuOpen) {
+    const { disableMap } = useContext(MapContext)
+
+    if (isOpen) {
         disableMap();
     }
     return (
-        <div className={`side-menu-root ${isSideMenuOpen ? 'visible' : 'hidden'}`}
-            ref={backgroundRef}
-        >
+        <div className={`side-menu-root ${isOpen ? 'visible' : 'hidden'}`}>
             <div className="side-menu">
                 {children}
             </div>

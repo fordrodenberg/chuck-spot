@@ -3,6 +3,8 @@
 
     height: 100vh;
     font-family: 'Barlow Condensed', sans-serif;
+
+    cursor: default;
 }
 
 .new-spot-form-root h1 {

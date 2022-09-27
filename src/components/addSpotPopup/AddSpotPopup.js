@@ -10,19 +10,28 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
     console.log('add spot popup')
 
     const [position, setPosition] = useState(null);
-    const { isMapDisabled, disableMap, enableMap, isSideMenuOpen, toggleIsSideMenuOpen } = useContext(MapContext);
+    const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
+    const { isMapDisabled, disableMap, enableMap } = useContext(MapContext);
 
     const map = useMapEvents({
         click(e) {
 
+            console.log("map clicked")
+            if (isSideMenuOpen) {
+                console.log("side menu is open. do nothing")
+                return
+            }
             if (isMapDisabled && !isSideMenuOpen) {
                 enableMap();
                 return
             }
 
+            // is enabled / nothing open
+            console.log("flying to clicked spot")
             setPosition(e.latlng)
             map.flyTo(e.latlng, map.getZoom())
             disableMap();
+
         },
         locationfound(e) {
         },
@@ -34,6 +43,7 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
     }
     function handleCancelClicked() {
         toggleIsSideMenuOpen();
+        enableMap();
 
     }
 
@@ -46,7 +56,9 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
                     <button onClick={handleAddSpotClicked}> + New Spot</button>
                 </Popup>
 
-                <SideMenu isOpen={isSideMenuOpen} toggleSideMenuOpen={toggleIsSideMenuOpen}>
+                <SideMenu isOpen={isSideMenuOpen}
+                    toggleOpen={toggleIsSideMenuOpen}
+                >
                     <NewSpotForm
                         onSubmit={() => {
                             toggleIsSideMenuOpen();
