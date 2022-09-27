@@ -8,7 +8,7 @@ import SpotMap from './components/spotMap/SpotMap';
 import LoadingScreen from './components/loadingScreen/LoadingScreen';
 import { useBoolean } from './hooks/UseBoolean';
 import { map } from 'leaflet';
-
+import L from 'leaflet'
 
 export const MapContext = createContext(null);
 export const MarkerContext = createContext(null);
@@ -21,7 +21,8 @@ function App() {
   const [usersCurrentPosition, setUsersCurrentPosition] = useState(null);
   const [isMapDisabled, setIsMapDisabled] = useState(false);
   const [selectedType, setSelectedType] = useState("");
-  const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
+
+
 
   function disableMap() {
     setIsMapDisabled(true);
@@ -53,7 +54,7 @@ function App() {
   }
 
   return (
-    <MapContext.Provider value={{ isMapDisabled, disableMap, enableMap, usersCurrentPosition, isSideMenuOpen, toggleIsSideMenuOpen }}>
+    <MapContext.Provider value={{ isMapDisabled, disableMap, enableMap, usersCurrentPosition }}>
       <MarkerContext.Provider value={{ selectedType, setSelectedType }}>
         <div className='app-root'>
           <div className='map-container'>
@@ -62,10 +63,19 @@ function App() {
                 center={[usersCurrentPosition?.lat, usersCurrentPosition?.lng]}
                 zoom={13}
                 scrollWheelZoom={false}>
-                <SpotMap markers={markers} getMarkers={getMarkers} />
+                <SpotMap
+                  markers={markers}
+                  selectedType={selectedType}
+                  getMarkers={getMarkers}
+                />
               </MapContainer>
               : <LoadingScreen />}
-            <NavBar />
+            <NavBar
+              typeFilter={selectedType}
+              setTypeFilter={(typeSelected) => {
+                setSelectedType(typeSelected)
+              }}
+            />
           </div>
         </div>
       </MarkerContext.Provider>

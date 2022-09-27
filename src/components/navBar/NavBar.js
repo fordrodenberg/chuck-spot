@@ -1,16 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './NavBar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightToBracket, faStore, faBullseye, faStar } from '@fortawesome/free-solid-svg-icons'
 import { signInWithGoogle } from '../../firebase-config';
-import { MarkerContext } from '../../App';
 
-export default function NavBar() {
 
-    const { setSelectedType } = useContext(MarkerContext)
+export default function NavBar({ setTypeFilter }) {
 
-    function handleTypeChanged(e) {
-        setSelectedType(e.target.value);
+
+    function handleTypeChanged(type) {
+        setTypeFilter(type);
     };
 
     return (
@@ -21,17 +20,23 @@ export default function NavBar() {
                 </div>
             </div>
             <div className='middle'>
-                <div className='filter spots' onClick={handleTypeChanged} value='spot'>
+                <div className='filter spots'
+                    onClick={() => { handleTypeChanged('spot') }}
+                    value='spot'>
                     <FontAwesomeIcon className='spot-icon' icon={faBullseye} />
                     <div>Spots</div>
                 </div>
-                <div className='filter parks' onClick={handleTypeChanged} value='park'>
+                <div className='filter parks'
+                    onClick={() => { handleTypeChanged('park') }}
+                    value='park'>
                     <FontAwesomeIcon icon={faStar} />
                     <div>
                         Parks
                     </div>
                 </div>
-                <div className='filter shops' onClick={handleTypeChanged} value='shop'>
+                <div className='filter shops'
+                    onClick={() => { handleTypeChanged('shop') }}
+                    value='shop'>
                     <FontAwesomeIcon icon={faStore} />
                     <div>Shops</div>
                 </div>
