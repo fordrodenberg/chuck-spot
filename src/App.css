@@ -1,6 +1,6 @@
 .leaflet-container {
   width: 100%;
-  height: calc(100vh - var(--nav-height));
+  height: calc(100vh - var(--nav-height) - var(--header-height));
   margin: 0;
 }
 
@@ -23,4 +23,8 @@ button {
 
 .map-container {
   width: 100%;
+}
+
+p {
+  color: #f3f1f1;
 }
