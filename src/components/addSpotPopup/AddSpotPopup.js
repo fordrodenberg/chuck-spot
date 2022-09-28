@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Popup, useMapEvents } from 'react-leaflet'
-import { MapContext } from '../../App';
+import { MapContext, UserContext } from '../../App';
 import { useBoolean } from '../../hooks/UseBoolean';
 import NewSpotForm from '../newSpotForm/NewSpotForm';
 import SideMenu from '../sideMenu/SideMenu';
@@ -11,13 +11,12 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
     const [position, setPosition] = useState(null);
     const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
     const { isMapDisabled, disableMap, enableMap } = useContext(MapContext);
+    const { activeUser } = useContext(UserContext);
 
     const map = useMapEvents({
         click(e) {
 
-            console.log("map clicked")
             if (isSideMenuOpen) {
-                console.log("side menu is open. do nothing")
                 return
             }
             if (isMapDisabled && !isSideMenuOpen) {
@@ -26,7 +25,6 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
             }
 
             // is enabled / nothing open
-            console.log("flying to clicked spot")
             setPosition(e.latlng)
             map.flyTo(e.latlng, map.getZoom())
             disableMap();
@@ -48,12 +46,22 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
 
     if (position === null) {
         return null
+    }
+    else if (!activeUser) {
+        return (
+            <div className='logged-out-message'>
+                <Popup position={position}>
+                    <p className='message'>Login to create a spot</p>
+                </Popup>
+            </div>
+        )
+
     } else {
         return (
-            <>
-                <Popup position={position}>
+            <div>
+                <Popup position={position} >
                     <button className='add-spot' onClick={handleAddSpotClicked}> + New Spot</button>
-                </Popup>
+                </Popup >
 
                 <SideMenu isOpen={isSideMenuOpen}
                     toggleOpen={toggleIsSideMenuOpen}
@@ -67,7 +75,7 @@ export default function AddSpotPopup({ onNewSpotAdded }) {
                         position={position} />
                 </SideMenu>
 
-            </>
+            </div>
         )
     }
 }

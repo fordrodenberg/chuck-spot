@@ -2,7 +2,7 @@ import React from 'react'
 import { TileLayer } from 'react-leaflet';
 import AddSpotPopup from '../addSpotPopup/AddSpotPopup';
 import CurrentLocationPin from '../currentLocationPin/CurrentLocationPin';
-import SpotMarker from '../markers/SpotMarker';
+import SpotMarker from '../spotMarker/SpotMarker';
 
 export default function SpotMap({ markers, selectedType, getMarkers }) {
 
@@ -10,7 +10,7 @@ export default function SpotMap({ markers, selectedType, getMarkers }) {
     const filteredMarkers = filterByType();
 
     function filterByType() {
-        return markers.filter(m => selectedType == "" || selectedType == m.type);
+        return markers.filter(m => !selectedType || selectedType == m.type);
     }
 
     return (
@@ -21,7 +21,10 @@ export default function SpotMap({ markers, selectedType, getMarkers }) {
             />
 
             {filteredMarkers.map((marker) =>
-                <SpotMarker key={marker.id} {...marker} />
+                <SpotMarker
+                    key={marker.id}
+                    onSpotDeleted={getMarkers}
+                    {...marker} />
             )}
             <CurrentLocationPin />
             <AddSpotPopup onNewSpotAdded={getMarkers} />

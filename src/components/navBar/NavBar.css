@@ -1,12 +1,12 @@
-.nav-root {
+nav {
     position: sticky;
     bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
 
-    background: linear-gradient(45deg, #414f61, #484d5c);
-    box-shadow: 0 5px 25px 0 rgba(140, 142, 143, 0.519) inset;
+    background-color: #414f61;
+    box-shadow: 0 5px 10px 0 #595c5d84 inset;
     backdrop-filter: blur(7.5px);
     -webkit-backdrop-filter: blur(7.5px);
 
@@ -17,55 +17,21 @@
 
 }
 
-.nav-root .middle {
+nav .middle {
     display: flex;
     justify-content: center;
     text-align: center;
 
 }
 
-.nav-root .left>div,
-.nav-root .middle>div,
-.nav-root .right>div {
+nav .middle>div {
     border-radius: 2px;
     transition: 0.2s;
 }
 
-
-
-nav .left {
-    font-family: 'Oswald', sans-serif;
-    font-size: 14pt;
-
-}
-
 nav .middle {
     font-family: 'Roboto Mono', monospace;
-}
-
-nav .left,
-nav .right {
-    padding: 1rem 1rem;
-
-}
-
-nav .right {
-    font-size: 14pt;
-    cursor: pointer;
-}
-
-nav .right:hover,
-nav .right:active {
-    background-color: #8e9297;
-
-}
-
-nav .dot {
-    color: #DDF2FF;
-}
-
-nav .title-spot {
-    color: #DCA11D;
+    margin: 0 auto;
 }
 
 nav .park,

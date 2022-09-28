@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './NewSpotForm.css'
 import { collection, addDoc } from 'firebase/firestore'
 import { getStorage } from "firebase/storage"
@@ -7,10 +7,11 @@ import { db } from "../../firebase-config";
 import { v4 } from 'uuid';
 import { faStore, faBullseye, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { UserContext } from '../../App'
 
 export default function NewSpotForm({ position, handleCancelClicked, onSubmit }) {
 
+    const { activeUser } = useContext(UserContext)
     const storage = getStorage();
     const markersCollectionRef = collection(db, "markers");
 
@@ -19,6 +20,7 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
 
     const [formData, setFormData] = useState({
         name: '',
+        createdBy: activeUser.uid,
         description: '',
         location: [position.lat, position.lng],
         type: 'spot',
@@ -39,7 +41,7 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
     function handleInputChange(e) {
         let name = e.target.name;
         let value = e.target.value;
-        console.log(name, value)
+
         setFormData({
             ...formData,
             [name]: value
@@ -48,10 +50,8 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
 
     async function submitSpot() {
 
-
         // then upload the doc
         let spotDoc = await addDoc(markersCollectionRef, formData)
-        console.log(spotDoc.id);
 
         // upload images and get "URLs" / ids for the images
         for (let i = 0; i < images.length; i++) {

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './SpotDetailPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faStore as shopIcon, faBullseye as spotIcon, faStar as parkIcon } from '@fortawesome/free-solid-svg-icons';
 import Modal from '../Modal/Modal'
 import { useBoolean } from '../../hooks/UseBoolean';
+import { UserContext } from '../../App';
 
-export default function ({ handleExitClicked, name, description, location, type, images }) {
+export default function ({ handleExitClicked, name, description, location, type, images, createdBy, id, onSpotDeleted }) {
+
+    const { activeUser } = useContext(UserContext);
 
     function getIcon(type) {
         let icon;
@@ -85,17 +88,22 @@ export default function ({ handleExitClicked, name, description, location, type,
                     </div>
                 </div>
             </div>
-            <div className='buttons'>
 
-                <button className='delete' onClick={displayModal}>Delete</button>
+            {activeUser?.uid == createdBy &&
+                <div className='buttons'>
+                    <button className='delete' onClick={displayModal}>Delete</button>
 
-                <button className='edit'>Edit</button>
-            </div>
+                    <button className='edit'>Edit</button>
+                </div>}
 
-            {/* <Modal
-                isOpen={isModalOpen}
-                toggleOpen={toggleIsModalOpen} /> */}
-
+            {isModalOpen && (
+                < Modal
+                    isModalOpen={isModalOpen}
+                    toggleIsModalOpen={toggleIsModalOpen}
+                    id={id}
+                    onSpotDeleted={onSpotDeleted}
+                />
+            )}
         </div>
     )
 }
