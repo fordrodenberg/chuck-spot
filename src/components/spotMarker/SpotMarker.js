@@ -14,7 +14,7 @@ import SideMenu from '../sideMenu/SideMenu'
 import SpotDetailPage from '../spotDetailPage/SpotDetailPage'
 import { MapContext } from '../../App'
 
-export default function SpotMarker({ id, name, location, description, type }) {
+export default function SpotMarker({ id, name, location, description, type, createdBy, onSpotDeleted }) {
 
 
     const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
@@ -26,7 +26,6 @@ export default function SpotMarker({ id, name, location, description, type }) {
     const { disableMap } = useContext(MapContext);
 
     useEffect(() => {
-        console.log("getting images")
         if (imageUrls.length == 0) {
             getDocs()
         }
@@ -35,10 +34,10 @@ export default function SpotMarker({ id, name, location, description, type }) {
     function getDocs() {
         list(spotImagesRef)
             .then((response) => {
-                console.log('got response', response)
+
                 response.items.forEach((item) => {
                     getDownloadURL(item).then((url) => {
-                        console.log(url)
+
                         setImageUrls((prev) => [...prev, url]);
                     });
                 });
@@ -75,7 +74,6 @@ export default function SpotMarker({ id, name, location, description, type }) {
                 icon={GetIcon(type)}
                 eventHandlers={{
                     click: (e) => {
-
                         disableMap();
                         // setMapPosition({ lat: location[0], lng: location[1] });
                     }
@@ -113,14 +111,18 @@ export default function SpotMarker({ id, name, location, description, type }) {
             <SideMenu
                 isOpen={isSideMenuOpen}
                 toggleOpen={toggleIsSideMenuOpen}
+
             >
                 <SpotDetailPage
+                    id={id}
                     handleExitClicked={toggleIsSideMenuOpen}
                     name={name}
                     description={description}
                     location={location}
                     type={type}
+                    createdBy={createdBy}
                     images={imageUrls.map(img => <img width='125px' height='125px' src={img} />)}
+                    onSpotDeleted={onSpotDeleted}
                 />
             </SideMenu>
         </>
