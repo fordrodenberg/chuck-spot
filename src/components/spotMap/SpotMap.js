@@ -25,6 +25,7 @@ export default function SpotMap({ markers, selectedType, getMarkers }) {
                 <SpotMarker
                     key={marker.id}
                     onSpotDeleted={getMarkers}
+                    onSpotEdited={getMarkers}
                     {...marker} />
             )}
             <CurrentLocationPin />

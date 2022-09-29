@@ -249,9 +249,18 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
 
                 {/* cancel and submit buttons */}
                 <div className='buttons'>
-                    <button onClick={handleCancelClicked} className='cancel'>Cancel</button>
+                    <button
+                        type='button'
+                        onClick={handleCancelClicked}
+                        className='cancel'>
+                        Cancel
+                    </button>
 
-                    <button className='submit' type='submit'>Submit</button>
+                    <button
+                        className='submit'
+                        type='submit'>
+                        Submit
+                    </button>
                 </div>
             </div>
         </form >

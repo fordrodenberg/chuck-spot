@@ -14,7 +14,7 @@ import SideMenu from '../sideMenu/SideMenu'
 import SpotDetailPage from '../spotDetailPage/SpotDetailPage'
 import { MapContext } from '../../App'
 
-export default function SpotMarker({ id, name, location, description, type, createdBy, onSpotDeleted }) {
+export default function SpotMarker({ id, name, location, description, type, createdBy, onSpotDeleted, onSpotEdited }) {
 
 
     const [isSideMenuOpen, toggleIsSideMenuOpen] = useBoolean(false);
@@ -123,6 +123,7 @@ export default function SpotMarker({ id, name, location, description, type, crea
                     createdBy={createdBy}
                     images={imageUrls.map(img => <img width='125px' height='125px' src={img} />)}
                     onSpotDeleted={onSpotDeleted}
+                    onSpotEdited={onSpotEdited}
                 />
             </SideMenu>
         </>

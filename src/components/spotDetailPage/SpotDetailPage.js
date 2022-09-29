@@ -11,7 +11,7 @@ import { db, storage } from '../../firebase-config';
 import { ref, uploadBytes } from 'firebase/storage';
 
 
-export default function ({ handleExitClicked, name, description, location, type, images, createdBy, id, onSpotDeleted }) {
+export default function ({ handleExitClicked, name, description, location, type, images, createdBy, id, onSpotDeleted, onSpotEdited }) {
 
     const { activeUser } = useContext(UserContext);
 
@@ -28,12 +28,12 @@ export default function ({ handleExitClicked, name, description, location, type,
     }
 
     const markerRef = doc(db, "markers", id);
-    // const [newImages, setNewImages] = useState([]);
+
     const [isModalOpen, toggleIsModalOpen] = useBoolean(false);
     const [isEditModeOn, toggleIsEditModeOn] = useBoolean(false);
     const [formData, setFormData] = useState({
-        name: '',
-        description: '',
+        name: name,
+        description: description,
         imageIds: [] // do not add to this via the form. only add during upload
     });
 
@@ -55,42 +55,18 @@ export default function ({ handleExitClicked, name, description, location, type,
         });
     }
 
-    // function uploadImage(img, imageId, spotId) {
-
-    //     const imageRef = ref(storage, `images/${spotId}/${imageId}`);
-    //     uploadBytes(imageRef, img)
-    //         .then((snapshot) => {
-    //             // .then has to be here to actually make the promise resolve
-
-    //             // getDownloadURL(snapshot.ref)
-    //             //     .then((url) => {
-    //             //         console.log(url)
-    //             //         // setImageUrls((prev) => [...prev, url])
-    //             //     });
-    //         });
-    // }
-
-    // function handleImageUploadChange(e) {
-    //     let newId = v4();
-    //     setNewImages([...images, e.target.files[0]])
-    //     setFormData((formData) => {
-    //         return {
-    //             ...formData,
-    //             imageIds: [...formData.imageIds, newId]
-    //         }
-    //     });
-    // }
 
 
+    function updateSpot() {
 
-    async function updateSpot() {
+        setDoc(markerRef, {
+            location, type, createdBy, id,
+            name: formData.name,
+            description: formData.description,
+            images: [...images, ...formData.imageIds]
+        });
 
-        // await setDoc(markerRef), {
-        //     ...markerRef,
-        //     name: formData.name,
-        //     description: formData.description
-        // }
-
+        toggleIsEditModeOn();
     }
 
     function handleCancelClicked() {
@@ -179,10 +155,13 @@ export default function ({ handleExitClicked, name, description, location, type,
     } else if (isEditModeOn) {
         return (
 
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                updateSpot();
-            }}>
+            <form
+
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    updateSpot();
+                    onSpotEdited && onSpotEdited();
+                }}>
                 <div className='spot-detail-page-root '>
                     <div className='header'>
 
