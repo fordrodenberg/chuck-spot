@@ -1,20 +1,19 @@
 nav {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-
     background-color: #414f61;
     box-shadow: 0 5px 10px 0 #595c5d84 inset;
     backdrop-filter: blur(7.5px);
     -webkit-backdrop-filter: blur(7.5px);
-
     color: var(--primary-white);
     font-weight: 600;
     z-index: 3;
     height: var(--nav-height);
-
+    width: 100%;
+    z-index: 9000;
 }
 
 nav .middle {

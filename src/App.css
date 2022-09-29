@@ -1,7 +1,12 @@
+.app-root {
+  height: 100vh;
+}
+
 .leaflet-container {
   width: 100%;
-  height: calc(100vh - var(--nav-height) - var(--header-height));
+  height: 100%;
   margin: 0;
+  position: relative;
 }
 
 .leaflet-popup-content-wrapper,

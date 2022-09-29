@@ -1,10 +1,10 @@
 .new-spot-form-root {
     background-color: #414f61;
-
-    height: 100vh;
     font-family: 'Barlow Condensed', sans-serif;
-
+    position: absolute;
+    inset: 0;
     cursor: default;
+    height: 100vh;
 }
 
 .new-spot-form-root .header {
@@ -12,26 +12,21 @@
     justify-content: space-between;
     background-color: #29323e;
     border-bottom: solid 4px #546171;
-    font-size: 24pt;
+    font-size: 20pt;
     text-align: center;
     color: #f3f1f1;
-    padding: .5rem;
+    padding: .25rem;
     font-family: 'Barlow Condensed', sans-serif;
-
 }
-
-
-
 
 .new-spot-form-root h1 {
     margin: 0;
     font-size: inherit;
-    padding: 0 1rem;
+    padding: 0 .25rem;
 }
 
 .new-spot-form-root .logo {
     font-size: 12pt;
-
     font-family: 'Oswald', sans-serif;
 }
 
@@ -40,21 +35,18 @@
 }
 
 .new-spot-form-root .form-data {
-    padding: 2rem;
+    padding: .25rem .5rem;
     color: #f3f1f1;
     font-size: 20pt;
 }
 
 .new-spot-form-root label,
 .new-spot-form-root legend {
-    font-size: 16pt;
+    font-size: 14pt;
     font-weight: 500;
     display: block;
 }
 
-.new-spot-form-root>div {
-    padding: .25rem;
-}
 
 .new-spot-form-root .location-root {
     display: flex;
@@ -73,14 +65,11 @@
 
 }
 
-
-
-
 .new-spot-form-root input,
 .new-spot-form-root textarea {
     border: none;
     outline: none;
-    padding: .5rem;
+    padding: .2rem;
     display: inline-block;
     position: relative;
     width: 100%;
@@ -91,6 +80,7 @@
     background-color: #686D7D;
     color: #f3f1f1;
     border: solid 2px transparent;
+    font-size: 15pt;
 }
 
 .new-spot-form-root input[type=file] {
@@ -193,13 +183,12 @@
 
 .new-spot-form-root .buttons {
     display: flex;
+    justify-content: flex-end;
     gap: 8px;
-
     padding: 1rem;
     transition: .3s;
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+
+
 }
 
 .new-spot-form-root .buttons>button {

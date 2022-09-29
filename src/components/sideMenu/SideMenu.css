@@ -1,7 +1,6 @@
 .side-menu-root {
     background-color: transparent;
-    position: fixed;
-    inset: 0;
+    position: relative;
     transition: 300ms;
     z-index: 9900;
 }

@@ -2,10 +2,11 @@ header {
     display: flex;
     justify-content: space-between;
     height: var(--header-height);
-    position: sticky;
-    top: 0;
+    position: fixed;
+    z-index: 9000;
     background-color: #414f61;
     box-shadow: 0 5px 10px 0 #595c5d84 inset;
+    width: 100%;
 }
 
 header .title {

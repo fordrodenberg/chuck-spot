@@ -121,6 +121,7 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
                             Name:
                         </label>
                         <input
+
                             type='text'
                             name='name'
                             value={formData.name}
@@ -144,7 +145,7 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
                             required
 
                             placeholder='6 stair with handrail, gap, ledges, etc'
-                            id='name'
+                            id='description'
                         />
                     </div>
 
@@ -239,12 +240,10 @@ export default function NewSpotForm({ position, handleCancelClicked, onSubmit })
 
                     {/* image upload */}
                     <div>
-                        <input type='file' multiple
+                        <input
+                            type='file'
+                            multiple
                             onChange={handleImageUploadChange} />
-                        <br />
-                        {imageUrls.map((url) => {
-                            return <img width='75px' height='75px' src={url} />;
-                        })}
                     </div>
                 </div>
 

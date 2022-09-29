@@ -3,7 +3,8 @@ import { TileLayer } from 'react-leaflet';
 import AddSpotPopup from '../addSpotPopup/AddSpotPopup';
 import CurrentLocationPin from '../currentLocationPin/CurrentLocationPin';
 import SpotMarker from '../spotMarker/SpotMarker';
-
+import MAP_THEMES from '../../assets/leafletStyles.json'
+import './SpotMap.css'
 export default function SpotMap({ markers, selectedType, getMarkers }) {
 
 
@@ -14,10 +15,10 @@ export default function SpotMap({ markers, selectedType, getMarkers }) {
     }
 
     return (
-        <>
+        <div className='map-container'>
             <TileLayer
-                attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+                attribution={MAP_THEMES[0].attribution}
+                url={MAP_THEMES[0].url}
             />
 
             {filteredMarkers.map((marker) =>
@@ -30,7 +31,7 @@ export default function SpotMap({ markers, selectedType, getMarkers }) {
             <AddSpotPopup onNewSpotAdded={getMarkers} />
             {/* doesn't show until map is clicked */}
 
-        </>
+        </div>
     )
 }
 
